@@ -59,5 +59,16 @@ public class AddressBookServiceTest {
 			e.printStackTrace();
 		}
 	}
+	
+	@Test
+	public void getContactsFromAParticularStateOrCity() throws SQLException{
+		try {
+			Connection connection = DriverManager.getConnection(jdbcURL, userName, password);
+			service.retriveContactFromCityOrState(connection, "Mumbai", "Texas");
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 }

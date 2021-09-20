@@ -78,5 +78,23 @@ public class AddressBookService {
 			e.printStackTrace();
 		}
 	}
+	public void retriveContactFromCityOrState(Connection connection, String city, String state) throws SQLException{
+		try {
+			PreparedStatement stm = connection
+					.prepareStatement("SELECT * FROM address_book_table WHERE City = ? OR State = ?;");
+			stm.setString(1, city);
+			stm.setString(2, state);
+			ResultSet resultSet  = stm.executeQuery();
+			while (resultSet.next()) {
+				System.out.println(resultSet.getString(1) + " " + resultSet.getString(2) + " "
+						+ resultSet.getString(3) + " " + resultSet.getString(4) + " " + resultSet.getString(5)
+						+ " " + resultSet.getString(6) + " " + resultSet.getInt(7) + " " + resultSet.getInt(8)
+						+ " " + resultSet.getString(9) + " " + resultSet.getString(10));
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 }
