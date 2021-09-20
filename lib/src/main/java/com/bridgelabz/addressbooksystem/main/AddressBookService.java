@@ -96,5 +96,35 @@ public class AddressBookService {
 			e.printStackTrace();
 		}
 	}
-
+	
+	public void insertNewContact(Connection connection, String First_name, String Last_name, String type, String Address, String City,
+			String State, int ZIP, int Phone_number, String Email, String Date_Added) {
+		try {
+			PreparedStatement stm = connection.prepareStatement("INSERT INTO address_book_table (First_name,Last_name,Address,City,State,ZIP,Phone_number,Email) VALUES (?,?,?,?,?,?,?,?,?,?);");
+			stm.setString(1, First_name);
+			stm.setString(2, Last_name);
+			stm.setString(3, type);
+			stm.setString(4, Address);
+			stm.setString(5, City);
+			stm.setString(6, State);
+			stm.setInt(7, ZIP);
+			stm.setInt(8, Phone_number);
+			stm.setString(9, Email);
+			stm.setString(10, Date_Added);
+			stm.executeUpdate();
+			System.out.println("Data inserted");
+			ResultSet resultSet = stm.executeQuery("Select * from address_book_table");
+			while (resultSet.next()) {
+				System.out.println(resultSet.getString(1) + " " + resultSet.getString(2) + " "
+						+ resultSet.getString(3) + " " + resultSet.getString(4) + " " + resultSet.getString(5)
+						+ " " + resultSet.getString(6) + " " + resultSet.getInt(7) + " " + resultSet.getInt(8)
+						+ " " + resultSet.getString(9)+ " " + resultSet.getString(10));
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }
+
+

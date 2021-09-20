@@ -70,5 +70,16 @@ public class AddressBookServiceTest {
 			e.printStackTrace();
 		}
 	}
+	
+	@Test
+	public void addNewContacts() throws SQLException{
+		try {
+			Connection connection = DriverManager.getConnection(jdbcURL, userName, password);
+			service.insertNewContact(connection, "Ankita","Pandit","Family","14th Street","NewDelhi","Pune",969893,73638745,"ankita@gmail.com","2019-06-13");
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 }
