@@ -35,7 +35,7 @@ public class AddressBookService {
 						System.out.println(resultSet.getString(1) + " " + resultSet.getString(2) + " "
 								+ resultSet.getString(3) + " " + resultSet.getString(4) + " " + resultSet.getString(5)
 								+ " " + resultSet.getString(6) + " " + resultSet.getInt(7) + " " + resultSet.getInt(8)
-								+ " " + resultSet.getString(9));
+								+ " " + resultSet.getString(9)+ " " + resultSet.getString(10));
 					}
 					return "Data is printed";
 				}
@@ -47,11 +47,11 @@ public class AddressBookService {
 		return "Table is not present in data base";
 	}
 
-	public void updateCityThroughFirstName(Connection connection, String FirstName, String city) throws SQLException {
+	public void updateCityThroughFirstName(Connection connection, String FirstName, long Phone_number) throws SQLException {
 		try {
 			PreparedStatement stm = connection
-					.prepareStatement("update address_book_table set City = ? where First_name = ?;");
-			stm.setString(1, city);
+					.prepareStatement("update address_book_table set Phone_number = ? where First_name = ?;");
+			stm.setLong(1, Phone_number);
 			stm.setString(2, FirstName);
 			stm.executeUpdate();
 			System.out.println("Details has been updated successfully.");
@@ -59,6 +59,24 @@ public class AddressBookService {
 			e.printStackTrace();
 		}
 
+	}
+	
+	public void retriveContactFromPeriod(Connection connection, String date) throws SQLException{
+		try {
+			PreparedStatement stm = connection
+					.prepareStatement("SELECT * FROM address_book_table WHERE Date_Added BETWEEN CAST(? AS DATE) AND DATE(NOW());");
+			stm.setString(1, date);
+			ResultSet resultSet  = stm.executeQuery();
+			while (resultSet.next()) {
+				System.out.println(resultSet.getString(1) + " " + resultSet.getString(2) + " "
+						+ resultSet.getString(3) + " " + resultSet.getString(4) + " " + resultSet.getString(5)
+						+ " " + resultSet.getString(6) + " " + resultSet.getInt(7) + " " + resultSet.getInt(8)
+						+ " " + resultSet.getString(9) + " " + resultSet.getString(10));
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

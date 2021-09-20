@@ -43,8 +43,19 @@ public class AddressBookServiceTest {
 	public void updateDetailsInDatabase_checkIfSynced() throws SQLException {
 		try {
 			Connection connection = DriverManager.getConnection(jdbcURL, userName, password);
-			service.updateCityThroughFirstName(connection, "Sarvesh", "Mumbai");
+			service.updateCityThroughFirstName(connection, "Sarvesh", 852041748);
 		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void getContactsFromAParticularPeriod() throws SQLException{
+		try {
+			Connection connection = DriverManager.getConnection(jdbcURL, userName, password);
+			service.retriveContactFromPeriod(connection, "2019-01-03");
+		}
+		catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
