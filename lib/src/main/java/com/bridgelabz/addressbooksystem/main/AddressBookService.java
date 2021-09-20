@@ -3,6 +3,7 @@ package com.bridgelabz.addressbooksystem.main;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -44,6 +45,20 @@ public class AddressBookService {
 			e.printStackTrace();
 		}
 		return "Table is not present in data base";
+	}
+
+	public void updateCityThroughFirstName(Connection connection, String FirstName, String city) throws SQLException {
+		try {
+			PreparedStatement stm = connection
+					.prepareStatement("update address_book_table set City = ? where First_name = ?;");
+			stm.setString(1, city);
+			stm.setString(2, FirstName);
+			stm.executeUpdate();
+			System.out.println("Details has been updated successfully.");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }
