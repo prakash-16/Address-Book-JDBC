@@ -39,4 +39,14 @@ public class AddressBookServiceTest {
 		}
 	}
 
+	@Test
+	public void updateDetailsInDatabase_checkIfSynced() throws SQLException {
+		try {
+			Connection connection = DriverManager.getConnection(jdbcURL, userName, password);
+			service.updateCityThroughFirstName(connection, "Sarvesh", "Mumbai");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
 }
